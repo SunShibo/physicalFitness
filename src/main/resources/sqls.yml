@@ -1,8 +1,0 @@
-sqls:
-    # 示例
-    aaa.bbb: |
-        SELECT ur.role_id, ur.role_name, ur.is_used
-        FROM upms_user_role uur
-        JOIN upms_user uu ON uu.user_id = uur.user_id
-        JOIN upms_role ur ON ur.role_id = uur.role_id
-        WHERE uu.user_name = :userName AND uu.is_used = '1' and ur.is_used = '1' 
