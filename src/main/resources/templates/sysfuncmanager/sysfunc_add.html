@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div ng-controller="CreateFuncCtrl" rend-after="validForm();">
+		<div class="row">
+			<div class="col-sm-12 ">
+				<div class="white-box">
+					<div class="row">
+						<h3>新增权限</h3>
+					</div>
+					<div>
+						<p>新增权限说明</p>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-12">
+					<form id="defaultForm" class="form-horizontal" data-toggle="validator"
+						name="signup_form">
+						<div class="form-group">
+							<label class="col-lg-2 control-label">菜单ID<span 
+								class="text-danger">*</span></label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="funcId" ng-model="funcObj.funcId"
+								placeholder="请输入菜单ID" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">菜单名称<span 
+								class="text-danger">*</span></label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="funcName" ng-model="funcObj.funcName"
+								placeholder="请输入菜单名称" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">菜单简称<span 
+								class="text-danger">*</span></label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="funcShortName" ng-model="funcObj.funcShortNam"
+								placeholder="请输入菜单简称" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">菜单级别<span 
+								class="text-danger">*</span></label>
+							<div class="col-md-4" id="levelDiv">
+								<ui-select ng-model="funcObj.levelSelectItem" theme="bootstrap" ng-click="changeLevel(funcObj.levelSelectItem.id)"
+									search-enabled="true"> <ui-select-match
+									placeholder="请选择菜单级别">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices
+										repeat="item in levelSelect | filter: $select.search">
+								<span>{{item.name}}</span> 
+<!-- 								<span ng-bind-html="item.name | highlight: $select.search"></span> -->
+								</ui-select-choices> </ui-select>
+								<input type="hidden" name="funcLevel" ng-model="funcObj.levelSelectItem.id" />
+							</div>
+						</div>
+						<div class="form-group" ng-show="funcObj.level1Show">
+							<label class="col-md-2 control-label">一级菜单<span 
+								class="text-danger">*</span></label>
+							<div class="col-md-4" id="parentFuncDiv">
+								<ui-select ng-model="funcObj.level1FuncListItem" theme="bootstrap" 
+									search-enabled="true"> <ui-select-match
+									placeholder="请选择父级菜单">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices
+										repeat="item in funcObj.level1FuncList | filter: $select.search">
+								<span>{{item.name}}</span>
+<!-- 								<span ng-bind-html="item.name | highlight: $select.search"></span> -->
+								</ui-select-choices> </ui-select>
+								<input type="hidden" name="parentFunc" ng-model="funcObj.level1FuncListItem.id" />
+							</div>
+						</div>
+						<div class="form-group m-b-0">
+							<div class="col-sm-offset-3 col-sm-9">
+								<button type="button" class="btn btn-primary m-r-md" id="validateBtn">确认添加</button>
+								<input type="button" class="btn btn-default"
+									ng-click="goback();" value="返回权限列表" />
+							</div>
+						</div>
+					</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

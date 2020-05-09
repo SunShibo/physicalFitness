@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>权限管理</title>
+</head>
+<body>
+	<div class="row" ng-controller="FuncManagerPageCtrl">
+		<div class="white-box">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<h3>权限列表</h3>
+				</div>
+				<div>
+					<p class="list_p">此列表展示系统所有权限。用户可点击“创建权限”创建新的权限，点击“编辑”修改单个权限信息。</p>
+				</div>
+				<div class="row white-box serch_area ">
+					<div class="row">
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.searchName"
+								class="form-control" placeholder="请输入权限名称" />
+						</div>
+						<div class="col-md-2 ">
+							<button type="button" ng-click="queryFuncPage()"
+								class="btn btn-success">查询</button>
+							<button type="button" ng-click="clearCookie()"
+								class="btn btn-default">重置</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 list_button_area_text_align_r">
+						<button type="button" ng-click="goCreateFunc();"
+							class="btn btn-success r-m-10">创建权限</button>
+					</div>
+				</div>
+
+				<div class="row between_list_button_list_area_margin"></div>
+
+				<div class="row">
+					<div class="">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered th_center tr40">
+								<thead>
+									<tr align="center">
+										<th style="text-align:center;" width="25%" ng-repeat="x in itemNames ">{{x.name}}</th>
+									</tr>
+								</thead>
+								<tr ng-if="isShowBottom(results);">
+									<td colspan="4">搜索无结果</td>
+								</tr>
+								<tbody>
+									<tr align="center" ng-repeat="result in results" repeat-done="repeatDone();">
+										<td>{{result.id}}</td>
+										<td>{{result.name}}</td> 
+										<td ng-if="result.roletypeId == 0">一级菜单</td>
+										<td ng-if="result.roletypeId != 0">二级菜单</td> 
+									    <td class="text-nowrap">
+									     <a data-toggle="tooltip" data-original-title="编辑" ng-click="editFunc(result.id);"><i class="fa fa-pencil text-inverse action_icon_font_size m-r-10" ng-if="result.isDefault != 1"></i></a>
+							            </td>  
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div ng-include="'page.html'" onload="queryForPage=queryFuncPage;"></div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div ng-controller="UserEditPageCtrl" rend-after="validForm();">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<div class="row">
+						<h3>编辑用户</h3>
+					</div>
+					<div>
+						<p>编辑用户功能说明</p>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-12">
+							<form id="defaultForm" method="post" class="form-horizontal"
+								data-toggle="validator" name="signup_form" action="">
+								<div class="form-group">
+									<label class="col-lg-2 control-label">用户名</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" readonly="readonly" name="userName"
+											ng-model="userObj.userName" placeholder="请输入用户名(6-18位字母或数字)" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">密码</label>
+									<div class="col-lg-6">
+										<input type="password" class="form-control" name="firstPassword"
+											ng-model="userObj.firstPassword" placeholder="请输入密码(6至20位字母、数字、特殊字符组成，其中必须有一个大写字母和特殊字符)" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">确认密码</label>
+									<div class="col-lg-6">
+										<input type="password" class="form-control" name="secondPassword"
+											ng-model="userObj.secondPassword" placeholder="请确认密码" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">用户组<span 
+										class="text-danger">*</span></label>
+									<div class="col-md-6" id="groupDiv">
+										<ui-select ng-model="userObj.groupObj" theme="bootstrap"
+											search-enabled="true"> <ui-select-match
+											placeholder="请选择一个用户组">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices
+												repeat="item in groups | filter: $select.search">
+										<span>{{item.name}}</span> 
+										</ui-select-choices> </ui-select>
+										<input type="hidden" name="userGroup" ng-model="userObj.groupObj.id" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">姓名<span
+										class="text-danger">*</span></label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" name="showName"
+											ng-model="userObj.showName" placeholder="请输入姓名" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">所属区县</label>
+									<div class="col-md-6" id="townDiv">
+										<ui-select ng-model="userObj.townObj" theme="bootstrap" ng-click="changeTown(userObj.townObj.id)"
+											search-enabled="true"> <ui-select-match
+											placeholder="请选择所属区县">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices
+												repeat="item in towns | filter: $select.search">
+										<span>{{item.name}}</span> 
+										</ui-select-choices> </ui-select>
+										<input type="hidden" name="funcLevel" ng-model="userObj.townObj.id" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">所属学校</label>
+									<div class="col-md-6" id="schoolDiv">
+										<ui-select ng-model="userObj.schoolObj" theme="bootstrap" 
+											search-enabled="true"> <ui-select-match
+											placeholder="请选择所属学校">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices
+												repeat="item in schools | filter: $select.search">
+										<span>{{item.name}}</span> 
+										</ui-select-choices> </ui-select>
+										<input type="hidden" name="funcLevel" ng-model="userObj.schoolObj.id" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">所属年级</label>
+									<div class="col-md-6" id="gradeDiv">
+										<ui-select ng-model="userObj.gradeObj" theme="bootstrap"
+											search-enabled="true"> <ui-select-match
+											placeholder="请选择所属年级">{{$select.selected.name}}</ui-select-match>
+										<ui-select-choices
+												repeat="item in grades | filter: $select.search">
+										<span>{{item.name}}</span> 
+										</ui-select-choices> </ui-select>
+										<input type="hidden" name="funcLevel" ng-model="userObj.gradeObj.id" />
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-lg-2 control-label">性别<span
+										class="text-danger">*</span></label>
+									<div class="col-lg-6">
+										<div class="radio radio-success" ng-repeat="obj in sexes"
+											style="float: left">
+											<input type="radio" name="gender" id="{{obj.value}}" ng-model="userObj.sex"
+												ng-value="obj" ng-checked="obj.value == userObj.sex"
+												/> <label> {{obj.name}} </label>&nbsp;&nbsp;&nbsp;
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">身份证号</label>
+									<div class="col-lg-6">
+										<input type="text" class="form-control" name="groupName"
+											ng-model="userObj.idcardNo" placeholder="请输入身份证号" />
+									</div>
+								</div>
+								<div class="form-group m-b-0">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button class="btn btn-primary m-r-md" id="validateBtn">保存</button>
+										<button type="button" class="btn btn-default"
+											ui-sref="app.user">返回用户列表</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

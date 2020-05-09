@@ -1,0 +1,32 @@
+/*
+d,select{margin:0;padding:0;}
+
+.zk_container { width:350px; position:relative;  background:#fff; padding:5px;border:#E6E6E6 solid 1px;}
+.zk_container .cal_container dl{ width:350px;font-size:12px; font-family:Tahoma, Geneva, sans-serif;}
+.zk_container .cal_container dt{ float:left; width:44px; height:44px; line-height:44px; text-align:center;background:#E6E6E6;}
+.zk_container .cal_container .cal_top{ height:44px; width:350px; font-weight:bold; background:#E6E6E6; position:relative;}
+.zk_container .cal_container .cal_top a{ cursor:pointer;  font-size:12px; display:block; width:20px; height:20px; position:absolute; top:0px;}
+.zk_container .cal_container .cal_top .l-arrow{ left:5px;}
+.zk_container .cal_container .cal_top .r-arrow{ right:5px;}
+.zk_container .cal_container dd{ font-weight:normal; color:#555;clear:both;}
+.zk_container .cal_container dd a{ width:44px; height:44px; display:block; background:#FFFFFF; text-align:center; line-height:25px; float:left; border:#E6E6E6 solid 1px;cursor:pointer; margin:1px 1px 0 0;}
+.zk_container .cal_container dd a.disabled{ color:#CCCCCC;cursor:auto; background:#F0F0F0;}
+.zk_container .cal_container dd a.mouseover{ background:#C63;color:#fff;}
+.zk_container .cal_container dd a.today{ background:#C63; font-weight:bold; color:#FFFFFF;}
+.zk_container .cal_container dd a.log{ color:#C63;}*/
+
+.calen_cont{width:99%;background:#8ce6ed;border-radius:5px;}
+.pd15{padding:15px;}
+.calen_h4{color:#fff;font-weight:bold;}
+.calen_tab_bord p{margin:0;}
+.calen_tab_bord{border-right:1px solid #999;border-top:1px solid #999;color:#333;}
+.calen_tab_bord .calen_dates{margin:0;text-align:right;}
+.calen_course{font-size:16px;height:24px;text-align:left;font-weight:bold;}
+.calen_tab_bord .calen_bgblue{color:#fff;}
+.calen_tab_bord .calen_bgwhite{color:#333;}
+.calen_tab_bord td,.calen_tab_bord th{border-left:1px solid #999;border-bottom:1px solid #999;color:#333;font-weight:normal;}
+.calen_tab_bord th{line-height:30px;text-align:center;}
+.calen_tab_bord td{height:40px;padding:0 2px}
+.calen_bgwhite{background-color:#fff;}
+.calen_bgblue{background-color:#5db3a6;}
+.calen_bggray{background-color:#e4e4e4;}

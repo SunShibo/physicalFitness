@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<div ng-controller="UserGroupEditPageCtrl" rend-after="validForm()">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="white-box">
+					<div class="row">
+						<h3>用户组编辑</h3>
+					</div>
+					<div>
+						<p>用户组名称</p>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-12">
+							<form id="defaultForm" method="post" class="form-horizontal"
+								data-toggle="validator" name="signup_form" action="">
+								<div class="form-group">
+									<label class="col-lg-2 control-label">用户组名称<span
+										class="text-danger">*</span></label>
+									<div class="col-lg-4">
+										<input type="text" class="form-control" name="groupName"
+											ng-model="groupName" placeholder="请输入用户组名称" />
+										<input type="hidden" ng-model="groupId" />
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">权限设置</label>
+									<div class="col-sm-9">
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="row" ng-repeat="country in allFuncList"
+													ng-class="{closed:country.opened}">
+													<div class="col-sm-2">
+														<div class="checkbox checkbox-success">
+															<input type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																ng-model="country.checked"
+																ng-change="countryChanged(country)"
+																ng-class="intermediate" /> <label> <span
+																ng-click="country.opened=!country.opened"> <span
+																	class="glyphicon"
+																	ng-class="country.opened?'glyphicon-plus':'glyphicon-minus'"></span>
+																	{{country.name}}
+															</span></label>
+														</div>
+													</div>
+													<div class="col-sm-10" ng-class="{hidden:country.opened}">
+														<div class="row" ng-if="$index%6==0"
+															ng-repeat="province in country.level2List">
+															<div class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{province.id+province.name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="province.checked"
+																		ng-change="provinceChanged(province,country)"
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}" />
+																	<label
+																		for="{{province.id+province.name}}">
+																		<span> {{province.name}}</span>
+																	</label>
+																</div>
+															</div>
+
+															<div ng-if="country.level2List[$index+1]"
+																class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{country.level2List[$index+1].id+country.level2List[$index+1].name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="country.level2List[$index+1].checked"
+																		ng-change="provinceChanged(country.level2List[$index+1],country)"
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}" />
+																	<label
+																		for="{{country.level2List[$index+1].id+country.level2List[$index+1].name}}">{{country.level2List[$index+1].name}}</label>
+																</div>
+															</div>
+
+															<div ng-if="country.level2List[$index+2]"
+																class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{country.level2List[$index+2].id+country.level2List[$index+2].name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="country.level2List[$index+2].checked"
+																		ng-change="provinceChanged(country.level2List[$index+2],country)" 
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}"/>
+																	<label
+																		for="{{country.level2List[$index+2].id+country.level2List[$index+2].name}}">{{country.level2List[$index+2].name}}</label>
+																</div>
+															</div>
+
+															<div ng-if="country.level2List[$index+3]"
+																class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{country.level2List[$index+3].id+country.level2List[$index+3].name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="country.level2List[$index+3].checked"
+																		ng-change="provinceChanged(country.level2List[$index+3],country)" 
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}"/>
+																	<label
+																		for="{{country.level2List[$index+3].id+country.level2List[$index+3].name}}">{{country.level2List[$index+3].name}}</label>
+																</div>
+															</div>
+
+															<div ng-if="country.level2List[$index+4]"
+																class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{country.level2List[$index+4].id+country.level2List[$index+4].name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="country.level2List[$index+4].checked"
+																		ng-change="provinceChanged(country.level2List[$index+4],country)" 
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}"/>
+																	<label
+																		for="{{country.level2List[$index+4].id+country.level2List[$index+4].name}}">{{country.level2List[$index+4].name}}</label>
+																</div>
+															</div>
+
+															<div ng-if="country.level2List[$index+5]"
+																class="col-sm-2">
+																<div class="checkbox checkbox-success">
+																	<input
+																		id="{{country.level2List[$index+5].id+country.level2List[$index+5].name}}"
+																		type="checkbox" name="checkeds[]" data-bv-field="checkeds[]"
+																		ng-model="country.level2List[$index+5].checked"
+																		ng-change="provinceChanged(country.level2List[$index+5],country)" 
+																		ng-class="{intermediate: vm.isIntermediateProvince(province)}"/>
+																	<label
+																		for="{{country.level2List[$index+5].id+country.level2List[$index+5].name}}">{{country.level2List[$index+5].name}}</label>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-sm-12">
+														<hr />
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="form-group m-b-0">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="button" class="btn btn-primary m-r-md" id="validateBtn">保存</button>
+										<button type="button" class="btn btn-default"
+												ng-click="goBack();">返回用户组列表</button>
+									</div>
+								</div>
+							</form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

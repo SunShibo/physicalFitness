@@ -1,0 +1,4 @@
+<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[No Bill Exist]]></return_msg>
+<error_code><![CDATA[20002]]></error_code>
+</xml>

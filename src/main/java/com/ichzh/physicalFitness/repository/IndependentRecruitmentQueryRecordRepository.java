@@ -1,0 +1,11 @@
+package com.ichzh.physicalFitness.repository;
+
+import org.springframework.stereotype.Repository;
+
+import com.ichzh.physicalFitness.model.IndependentRecruitmentQueryRecord;
+import com.ichzh.physicalFitness.repository.ext.IIndependentRecruitmentQueryRecordRepositoryExt;
+
+@Repository
+public interface IndependentRecruitmentQueryRecordRepository extends BaseRepository<IndependentRecruitmentQueryRecord, Integer>,IIndependentRecruitmentQueryRecordRepositoryExt{
+
+}
