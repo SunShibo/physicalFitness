@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>默认内容界面</title>
+<script type="text/javascript">
+function exportDetail(){
+        $("#frm1").attr("action","exportDetail")
+        $("#frm1").submit();
+}
+function exportDetail2(){
+    $("#frm2").attr("action",+"exportDetail4Tpl2")
+    $("#frm2").submit();
+}
+</script>
+</head>
+<body>
+<div ng-controller="WhitePageCtrl">
+<h1>默认内容界面</h1>
+	<a href="#"  onclick="javascript:exportDetail();" >下载PDF文件DEMO</a>
+	<br/>
+	<a href="#"  onclick="javascript:exportDetail2();" >下载PDF文件DEMO2</a>
+</div>
+<form action="/exportDetail" method="post" name="frm1" id="frm1" >
+</form>
+<form action="/exportDetail4Tpl2" method="post" name="frm2" id="frm2" >
+</form>
+</body>
+</html>

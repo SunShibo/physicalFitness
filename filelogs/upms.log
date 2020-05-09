@@ -1,0 +1,25 @@
+2020-05-09 16:04:02.071 [] [restartedMain] INFO  c.i.p.PhysicalFitnessApplication - Starting PhysicalFitnessApplication on chzh-PC with PID 11060 (F:\physicalFitness\target\classes started by qin.chi in F:\physicalFitness)
+2020-05-09 16:04:02.075 [] [restartedMain] INFO  c.i.p.PhysicalFitnessApplication - The following profiles are active: minio
+2020-05-09 16:04:15.788 [] [localhost-startStop-1] INFO  c.i.p.PhysicalFitnessApplication - ServletContext initialized
+2020-05-09 16:04:28.833 [] [restartedMain] INFO  c.i.p.bean.BeanConfig - 加载的sql配置文件：[sqls.yml, sqls_lyr.yml, sqls_yjf.yml, sqls_pzx.yml, sqls_ssn.yml]
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/admissioncondition/queryAdmissionCondition
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/admissionpolicy/queryAdmissionPolicy
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/admissionmode/queryAdmissionMode
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/admissiontime/queryAdmTime
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/jzdschool/queryJzdSchool
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/aidedallocaterange/queryAidedAllocateRangeMiddSchool
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/independentrecruitment/queryIndependentRecruitment
+2020-05-09 16:04:36.240 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/jzdschool/queryStreetCommunityAddress
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/nurseryschool/getNurserySchoolById
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/schoolchoice/getSchoolChoiceById
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/nurseryschool/queryNurserySchoolMapRange
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/nurseryschool/queryNurserySchool
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/schoolExport/querySchoolExportTree
+2020-05-09 16:04:36.241 [] [restartedMain] INFO  c.i.p.bean.WebConfig - 支付校验拦截器拦截的uri包括：/jzdschool/queryStreetCommunityAddress4More
+2020-05-09 16:04:42.185 [] [restartedMain] INFO  c.i.p.s.i.CacheApplicationServiceImpl - ======开始缓存数据======
+2020-05-09 16:04:45.861 [] [restartedMain] INFO  c.i.p.s.i.CacheApplicationServiceImpl - ======缓存数据结束======
+2020-05-09 16:04:45.991 [] [restartedMain] INFO  c.i.p.s.i.WeChatServiceImpl - 获取 access_token 参数：{"grant_type":"client_credential","appid":"wx519fef2ffaa3b3b1","secret":"39f76369767d512149291e4b26919829"}
+2020-05-09 16:04:47.041 [] [restartedMain] INFO  c.i.p.s.i.WeChatServiceImpl - 刷新 access_token 成功：AccessToken(access_token=33_O2lJBymUmgVHK8hSNhjGnnYq6Qey9yO2GN4Klhd2FViptxpJ7EXa4Ropx_6wofDrpPkuxdDyuM6PILEkGIAPzB_Uu1j2koV33Cj9shpQyO8Lm6Fe5OSwC3HnnA3X4lZ_2VT-9PkeJYrkam3KPMShADATQW, expires_in=7200, errcode=null, errmsg=null)
+2020-05-09 16:04:47.042 [] [restartedMain] INFO  c.i.p.s.i.WeChatServiceImpl - 获取 access_token 参数：{"grant_type":"client_credential","appid":"wx33a2bec40c2367c4","secret":"5615d233dc13b64f116892471fd7c29c"}
+2020-05-09 16:04:47.158 [] [restartedMain] INFO  c.i.p.s.i.WeChatServiceImpl - 刷新 access_token 成功：AccessToken(access_token=33_QkJw01k56MdqeBIcGAg-Cs-mW0LGtW25Xom23_dKgOBReVgPnf9Lf8dIUV94n7nsYn1MudTtoDA4PKDNmPL9At4Vlxa5OuNhErHNk5H9atIDcYdRxzuPkcAdtwqPR2IBu9LigVaY8WYIWpBuKACaABAZPR, expires_in=7200, errcode=null, errmsg=null)
+2020-05-09 16:04:47.159 [] [restartedMain] INFO  c.i.p.PhysicalFitnessApplication - Started PhysicalFitnessApplication in 45.956 seconds (JVM running for 47.421)

@@ -1,0 +1,206 @@
+sqls:
+    AdmissionConditionRepositoryImpl.queryBy: |
+      select *
+      from admission_condition
+      where service_block = :serviceBlock and town = :town
+        <#if studentStatus?has_content>
+          and student_status = :studentStatus 
+        </#if>
+        <#if householdRegistration?has_content>
+          and household_registration = :householdRegistration 
+        </#if>
+        <#if residence?has_content>
+          and residence = :residence
+        </#if>
+        
+    AdmissionPolicyRepositoryImpl.queryBy: |    
+      select DISTINCT t1.*
+      from admission_policy t1
+      where t1.service_block = :serviceBlock and t1.town in (:town, 110000)       
+      ORDER BY t1.year_year desc, t1.order_num ASC;
+                
+    AdmissionModeRepositoryImpl.queryBy: |
+      select *
+      from admission_mode
+      where service_block = :serviceBlock and town = :town 
+        and year_year = (SELECT year_year FROM info_latest_year 
+                           WHERE service_block = :serviceBlock and town = :town AND function_code = 10702)
+      
+    AdmissionTimeRepositoryImpl.queryBy: |
+      select *
+      from admission_time
+      where service_block = :serviceBlock and town = :town              
+        and year_year = (SELECT year_year FROM info_latest_year 
+                           WHERE service_block = :serviceBlock and town = :town AND function_code = 10703)
+    JzdSchoolRepositoryImpl.queryStreetNum: |
+      select count(DISTINCT street_name)
+      from jzd_school
+      where service_block = :serviceBlock and town = :town
+      
+    JzdSchoolRepositoryImpl.queryCommunityNum: |
+      select count(DISTINCT community_name)
+      from jzd_school
+      where service_block = :serviceBlock and town = :town 
+      
+    JzdSchoolRepositoryImpl.queryDetailAddressNum: |
+      select count(DISTINCT detail_address)
+      from jzd_school
+      where service_block = :serviceBlock and town = :town               
+      
+    AdmissionConditionRepositoryImpl.queryStudentStatus: |
+       select DISTINCT student_status as dictId, t2.dict_name as dictName
+       from admission_condition t1, sys_dict t2
+       where t1.service_block = :serviceBlock and t1.town = :town
+       and t1.student_status = t2.dict_id    
+       
+    AdmissionConditionRepositoryImpl.queryHouseholdRegistration: |
+      select DISTINCT household_registration as dictId, t2.dict_name
+      from admission_condition t1, sys_dict t2
+      where t1.service_block = :serviceBlock and t1.town = :town
+      <#if studentStatus?has_content>
+         and t1.student_status = :studentStatus
+      </#if>       
+      and t1.household_registration = t2.dict_id    
+ 
+    AdmissionConditionRepositoryImpl.queryResidence: |
+      select DISTINCT t1.residence as dictId, t2.dict_name
+      from admission_condition t1, sys_dict t2
+      where t1.service_block = :serviceBlock and t1.town = :town
+      <#if studentStatus?has_content> 
+        and t1.student_status = :studentStatus
+      </#if>
+      <#if householdRegistration?has_content>
+        and t1.household_registration = :householdRegistration
+      </#if>
+      and t1.residence = t2.dict_id
+      
+    InfoLatestYearRepositoryExtImpl.queryBy: |
+      select *
+      from info_latest_year
+      where service_block = :serviceBlock   and town = :town
+      
+    ConditionInfoRepositoryImpl.queryBy: |
+      select *
+      from condition_info
+      where member_id = :memberId  
+      
+    SchoolCollectionRepositoryImpl.deleteByServiceBlockAndMemberIdAndSchoolId: |         
+      DELETE from school_collection where service_block = :serviceBlock and member_id = :memberId and school_id = :schoolId
+      
+    ComparisonSchoolRepositoryImpl.queryBy: |
+      select t1.*
+      from school_choice t1, comparison_school t2
+      where t1.choice_id = t2.school_id and t2.member_id = :memberId
+      ORDER BY t2.order_num ASC
+      
+    SchoolLabelRespositoryImpl.querySchoolLabelBy: |
+      select *
+      from school_label
+      where school_code = :schoolCode
+      ORDER BY order_no ASC
+      
+    ComparisonSchoolRepositoryImpl.deleteBy: |
+      delete from comparison_school where member_id=:memberId and school_type=:schoolType and school_id=:schoolId
+      
+    AidedAllocateRangeRepositoryImpl.queryAidedAllocateRangePrimSchoolBy: |
+       select DISTINCT primary_school_code as schoolCode, primary_school_name as schoolName
+       from aided_allocate_range
+       where service_block = :serviceBlock and town = :town and primary_school_name is NOT null and trim(primary_school_name) != ''
+         <#if schoolName?has_content>
+           and primary_school_name like %:schoolName%
+         </#if>
+         and year_year = (SELECT year_year FROM info_latest_year 
+                WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+                
+    AidedAllocateRangeRepositoryImpl.queryAidedAllocateRangeMiddSchoolBy: |                     
+        select DISTINCT aar.junior_middle_code as schoolCode, aar.junior_middle_name as schoolName, aar.aided_allocate_kind as aidedAllocateKind
+        from aided_allocate_range aar
+        where aar.service_block = :serviceBlock and aar.town = :town and aar.junior_middle_name is NOT null and trim(aar.junior_middle_name) != ''
+          and aar.primary_school_code = :priSchCode
+          and aar.year_year =  (SELECT year_year FROM info_latest_year 
+                WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode) 
+                
+    PrimSchoolExportRepositoryImpl.queryYearOfPrimSchoolExportLatestThree: |
+      select DISTINCT year
+      from prim_school_export where prim_school_code = :schoolCode
+      ORDER BY year DESC
+      LIMIT 0, 2                
+      
+    PrimSchoolExportRepositoryImpl.queryOtherExportSchoolListData: |
+      select middle_school_name as schoolName, middle_campus_name as campusName, middle_school_code as schoolCode
+      from prim_school_export
+      where  sx_ratio <= 5 and prim_school_code = :schoolCode and YEAR = :year
+      ORDER BY sx_ratio DESC      
+      
+    MiddleSchoolExportRepositoryImpl.queryYearOfMiddleSchoolExportLatestThree: |
+      select DISTINCT year
+      from middle_school_export where middle_school_code = :schoolCode
+      ORDER BY year DESC
+      LIMIT 0, 2
+      
+    MiddleSchoolExportRepositoryImpl.queryOtherExportSchoolListData: |
+        select high_school_name as schoolName, high_campus_name as campusName, high_school_code as schoolCode
+        from middle_school_export
+        where  sx_ratio <= 5 and middle_school_code = :schoolCode and YEAR = :year
+        ORDER BY sx_ratio DESC
+    JzdSchoolQueryRecordRepositoryImpl.queryByMemberIdAndRecordTime: |
+        select * 
+        from jzd_school_query_record
+        where member_id = :memberId and date_format(query_time ,'%Y-%m-%d' ) = :recordTime  
+        
+    CommodityRepositoryImpl.queryFreeNumOfCommodity: |
+        select DISTINCT free_num from commodity where api_code = :apiCode      
+        
+    AllocateRangeQueryRecordRepositoryImpl.queryByMemberIdAndRecordTime: |
+        select * 
+        from allocate_range_query_record
+        where member_id = :memberId and date_format(query_time ,'%Y-%m-%d' ) = :recordTime          
+        
+    RecruitRangeQueryRecordRepositoryImpl.queryByMemberIdAndRecordTime: |
+        select * 
+        from recruit_range_query_record
+        where member_id = :memberId and date_format(query_time ,'%Y-%m-%d' ) = :recordTime    
+        
+    ComparisonSchoolRepositoryImpl.updateOtherOrderNum: |
+        update comparison_school set  order_num = (order_num + 1) where member_id = :memberId and school_id != :schoolId        
+        
+    EnrollmentScheduleRepositoryImpl.queryEnroolmentScheduleBy: |    
+        select t1.* 
+        from enrollment_schedule t1
+        where t1.service_block = :serviceBlock and t1.town = :town
+          and t1.year_year = (select t2.year_year from info_latest_year t2 where t2.service_block = :serviceBlock and t2.town = :town and t2.function_code = :functionCode)
+          <#if dates?has_content>
+             and date_format(t1.schedule_date ,'%Y-%m-%d') in (
+                <#list dates as oneDate>
+                   ${oneDate}
+                   <#if oneDate_has_next>,</#if>
+                </#list>
+             ) 
+          </#if>
+          order by t1.schedule_date asc
+    HeatAnalysisRepositoryImpl.queryHeatAnalysisBy: |
+       select * from heat_analysis
+       where service_block = :serviceBlock and school_code = :schoolCode 
+       ORDER BY year_year DESC     
+    ScheduleReminderRepositoryImpl.delScheduleReminderBy: |
+       DELETE from schedule_reminder
+       where member_id = :memberId and service_block = :serviceBlock and town = :town and admission_mode = :admissionMode
+    RecruitRangeQueryResultRecordRepositoryImpl.queryByMemberIdAndRecordTime: |   
+        select * 
+        from recruit_range_query_result_record
+        where member_id = :memberId and date_format(query_time ,'%Y-%m-%d' ) = :recordTime   
+    EnrollmentScheduleRepositoryImpl.queryEnrollmentScheduleByOpenId: |
+       select t4.service_block, t4.town, t4.admission_mode, t5.schedule_date, t5.parent_do_something
+       from unified_account t1, unified_account t2, member t3, schedule_reminder t4
+            left JOIN enrollment_schedule t5 on(t4.service_block = t5.service_block and t4.town = t5.town 
+              and t4.admission_mode = t5.admission_mode and date_format(t5.schedule_date ,'%Y-%m-%d') = :scheduleDate)
+       where t1.type = 1 and t2.type = 2
+         and t1.union_id = t2.union_id
+         and t1.open_id = t3.member_wechat
+         and t3.member_id = t4.member_id
+         and t2.open_id = :gzhOpenId  
+    UnifiedAccountRepositoryImpl.queryUnifiedAccountBy: |     
+     select t2.*
+     from unified_account t1, unified_account t2
+     where t1.type = 1 and t2.type = 2 and t1.union_id = t2.union_id
+     and t1.open_id = :wechatOpenId

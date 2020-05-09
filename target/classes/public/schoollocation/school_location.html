@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+<meta name="renderer" content="webkit"/>
+<script src="../js/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=XbzHeVKdorVig9gjy2q2Ye94"></script>
+<title>学校定位</title>
+
+<style type="text/css">
+	body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+	#allmap{height:500px;width:100%;}
+	#r-result{width:100%; font-size:14px;}
+</style>
+
+<script type="text/javascript"> 
+	
+	var longitude = "";
+	var latitude = "";
+	var schoolName = "";
+	
+	function getParameter(){
+		var search = decodeURI(window.location.search);
+        if (!search) {
+            return {};
+        }
+        search = search.substr(1);
+        if (!search) {
+            return {};
+        }
+        var splits = search.split("&");
+        var params = {};
+        for (let i in splits) {
+            var kv = splits[i];
+            var arr = kv.split("=");
+            
+            if(arr[0] == "longitude"){
+            	longitude = arr[1];
+            }else if(arr[0] == "latitude"){
+            	latitude = arr[1];
+            }else if(arr[0] == "schoolName"){
+            	schoolName = arr[1];
+            } 
+        }
+	};
+	
+	
+	$(function (){
+		getParameter();
+		makeLocation();
+	})	
+	
+	// 用经纬度设置地图中心点
+	function makeLocation(){
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");
+		map.enableScrollWheelZoom(true);
+		
+		var point = new BMap.Point(longitude, latitude);
+		map.centerAndZoom(point, 15);
+		var marker = new BMap.Marker(point); 
+		map.addOverlay(marker);              
+		map.panTo(point); 
+		
+		var opts = {
+		  position : point,
+		  offset   : new BMap.Size(-30, -60)
+		}
+		
+		var label = new BMap.Label(schoolName, opts);
+			label.setStyle({
+				 color : "black",
+				 fontSize : "12px",
+				 height : "20px",
+				 lineHeight : "20px",
+				 fontFamily:"微软雅黑"
+			 });
+		map.addOverlay(label);	
+	}	
+</script> 
+
+
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+html{background:white;}
+.nav {
+	width: 100%;
+	height: 55px;
+	background: #33bb88;
+	line-height: 55px;
+}
+
+.nav_list a {
+	width: 245px;
+	height: 55px;
+	line-height: 55px;
+	display: inline-block;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	float: left;
+}
+
+.nav_list .active {
+	background: #ffc056;
+}
+
+.clearfix {
+	clear: none;
+}
+
+.gallery li {
+	line-height: 100%;
+	float: left;
+	padding-left: 12px;
+	padding-top: 10px;
+	width: 40px;
+	height: 30px; /*! overflow: hidden; */ /*! position:relative; */
+	padding-bottom: 12px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<div class="wapper">
+			<header>
+				<div class="header">
+					<a href="javascipt:void(0);"><img src="http://uploads.tmechina.org/images/icon/logo.png" /></a>
+					<div class="pull-right user_info m-t-15 fmYh">
+						<ul>
+							<li class="m-r-30"><a ui-sref="app.stumycollectlist"><i
+									class="icon_collection header_icon"></i>我的收藏</a></li>
+							<li class=" user_in">
+								<div class="user_up">
+									{{loginUser.showname}}<i class="icon_down header_icon"></i>
+									<div class="user_list">
+										<div class="user_menu">
+											<span class="icon_xiala"></span>
+											<ul class="clearfix">
+												<a href="http://211.153.82.39/usercenter/userInfo/initRestPwd.action" target="_blank"><li>重置密码</li></a>
+												<a ui-sref="app.stubundphonepage"><li>绑定手机</li></a>
+<!-- 												<a ui-sref="app.stubundemailpage"><li>绑定邮箱</li></a> -->
+												<a ui-sref="app.stuchangphonepage"><li>换绑手机</li></a>
+<!-- 												<a ui-sref="app.stuchangemailpage"><li>换绑邮箱</li></a> -->
+												<a href="http://kfsj.bjedu.cn/Manual" target="_blank"><li>帮助</li></a>
+												<a ng-href="/logout"><li>退出</li></a>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</header>
+		</div>
+		<div class="nav">
+			<div class="wapper nav_list">
+				<a ui-sref ="app.stuhomeindex" ng-class="stuNavValue() == 1 ?'active':''">首页</a>
+				<a ui-sref="app.stuoptionalcourselist" ng-class="stuNavValue() == 2 ?'active':''">自主选课</a>
+				<a ng-if="checkUrl() == 1" href="javascript:;" ng-click="stuGoBottom(1)" >我的课程</a>
+				<a ng-if="checkUrl() != 1" href="javascript:;" ng-click="stuGoBottom(2)" >我的课程</a>
+				<a ui-sref ="app.stulooksummarylist" ng-class="stuNavValue() == 4 ?'active':''">查看汇总</a>
+			</div>
+		</div>
+		<div ui-view="">
+		</div>
+	</div>
+	
+	<div style="position: fixed;top:0px;right:2%;z-index:999;" ng-show="stuErrorObj.errorShow">
+		<div style="width:100%;color:#FFC056;text-align:center;">|</div>
+		<div style="width:100%;color:#FFC056;text-align:center;">|</div>
+		<div style="background-color:#FFC056;width:100%;text-align:center;">
+			<p style="color:white;">&nbsp;&nbsp;<i class="fa fa-warning"></i>当前页面有数据加载异常&nbsp;&nbsp;</p>
+			<p style="color:white;"><a href="" onclick="window.location.reload();">点此重新加载</a></p>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="wapper">
+			<p class="p-t-100 text-center">
+				<i class="icon_tel"></i><span class="tel">技术支持电话<br />4008-310-001
+				</span>
+			</p>
+			<p class="text-center m-t-10">北京市教育委员会&nbsp;时间：09:00-17:00
+				仅支持IE10及以上、火狐、谷歌浏览器</p>
+		</div>
+	</footer>
+	<script>
+		
+	</script>
+</body>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a2577a25094758d3cd9adde79f527cea";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>

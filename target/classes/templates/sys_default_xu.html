@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+<div class='row' ng-controller="SysdefaultPageCtrl">
+	<div  style="text-align: center;" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+		<!--<div class="white-box">-->
+			<!--&lt;!&ndash; Tab panes &ndash;&gt;-->
+			<!--<h3>首页</h3>-->
+<!--&lt;!&ndash; 			<p>此列表显示某学期系统中所有审核通过之后状态的活动列表。用户可对其进行查看。</p> &ndash;&gt;-->
+
+
+			<!--<div class="white-box">-->
+				<!--<div class="row">-->
+					<!--<p>开放科学实践首页</p>-->
+				<!--</div>-->
+<!--&lt;!&ndash; 				<div ng-include="'/page.html'" onload="queryForPage=queryPage"></div>   &ndash;&gt;-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--学校老师-->
+		<div ng-if="checkUserType(loginUser) == 2"><img usemap="#schoolTeacherMap" src="../images/navigation/schoolteacher.png"/></div>
+		<!--学校管理员-->
+		<div ng-if="checkUserType(loginUser) == 3"><img usemap="#schoolManagerMap" src="../images/navigation/schoolmanager.png"/></div>
+		<!--区县管理员-->
+		<div ng-if="checkUserType(loginUser) == 7"><img usemap="#townManagerMap" src="../images/navigation/townmanager.png"/></div>
+		<!--市级管理员-->
+		<div ng-if="checkUserType(loginUser) == 8"><img usemap="#cityManagerMap" src="../images/navigation/citymanager.png"/></div>
+		<!--机构管理员-->
+		<div ng-if="checkUserType(loginUser) == 9"><img usemap="#instManagerMap" src="../images/navigation/instmanager.png"/></div>
+		<!--机构老师-->
+		<div ng-if="checkUserType(loginUser) == 10"><img usemap="#instTeacherMap" src="../images/navigation/instteacher.png"/></div>
+		<!--学校班主任-->
+		<div ng-if="checkUserType(loginUser) == 13"><img usemap="#headMasterMap" src="../images/navigation/headmaster.png"/></div>
+		<!-- 其他角色 -->
+		<div ng-if="checkUserType(loginUser) == 0" class="white-box">
+			<div class="row">
+					<p>开放科学实践首页</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--学校老师-->
+<map name="schoolTeacherMap" id="schoolTeacherMap">
+	<area shape="rect" coords="211,104,317,218" style="cursor:pointer;" onclick="$('#fun_100057').click();"/><!--核对学生信息-->
+	<area shape="rect" coords="427,92,559,209" style="cursor:pointer;" onclick="$('#fun_100060').click();"/><!--课程预约与修改-->
+	<area shape="rect" coords="689,97,796,217" style="cursor:pointer;" onclick="$('#fun_100058').click();"/><!--数据统计-->
+</map>
+<!--学校管理员-->
+<map name="schoolManagerMap" id="schoolManagerMap">
+	<area shape="rect" coords="106,126,212,248" style="cursor:pointer;" onclick="$('#fun_100056').click();"/><!--分配授权教师-->
+	<area shape="rect" coords="370,201,499,229" style="cursor:pointer;" onclick="$('#fun_10005401').click();"/><!--自主选课列表-->
+	<area shape="rect" coords="372,229,500,255" style="cursor:pointer;" onclick="$('#fun_10005402').click();"/><!--送课到校列表-->
+	<area shape="rect" coords="641,116,774,248" style="cursor:pointer;" onclick="$('#fun_100090').click();"/><!--机构联系方式-->
+	<area shape="rect" coords="790,310,900,429" style="cursor:pointer;" onclick="$('#fun_100058').click();"/><!--数据统计-->
+	<area shape="rect" coords="482,312,665,431" style="cursor:pointer;" onclick="$('#fun_100059').click();"/><!--查看学生约课退课记录-->
+	<area shape="rect" coords="236,311,341,427" style="cursor:pointer;" onclick="$('#fun_100057').click();"/><!--核对学生信息-->
+</map>
+<!--区县管理员-->
+<map name="townManagerMap" id="townManagerMap">
+	<area shape="rect" coords="92,212,224,236" style="cursor:pointer;" onclick="$('#fun_10005401').click();"/><!--
+	自主选课-->
+	<area shape="rect" coords="93,236,224,260" style="cursor:pointer;" onclick="$('#fun_10005402').click();"/><!--送课到校-->
+	<area shape="rect" coords="228,310,355,422" style="cursor:pointer;" onclick="$('#fun_100090').click();"/><!--机构联系方式-->
+	<area shape="rect" coords="379,135,493,244" style="cursor:pointer;" onclick="$('#fun_100066_p').click();"/><!--重置密码-->
+	<area shape="rect" coords="653,127,758,248" style="cursor:pointer;" onclick="$('#fun_100066_sj').click();"/><!--数据评估-->
+	<area shape="rect" coords="480,307,661,432" style="cursor:pointer;" onclick="$('#fun_100065').click();"/><!--查看本区上课地址信息-->
+	<area shape="rect" coords="777,311,915,433" style="cursor:pointer;" onclick="$('#fun_100063').click();"/><!--数据统计-->
+</map>
+<!--市级管理员-->
+<map name="cityManagerMap" id="cityManagerMap">
+	<area shape="rect" coords="72,132,167,258" style="cursor:pointer;" onclick="$('#fun_100068').click();"/><!--审核机构场地-->
+	<area shape="rect" coords="274,212,410,236" style="cursor:pointer;" onclick="$('#fun_10005401').click();"/><!--自主选课列表-->
+	<area shape="rect" coords="274,236,410,258" style="cursor:pointer;" onclick="$('#fun_10005402').click();"/><!--送课到校列表-->
+	<area shape="rect" coords="495,126,619,261" style="cursor:pointer;" onclick="$('#fun_100066_p').click();"/><!--重置密码-->
+	<area shape="rect" coords="723,130,831,256" style="cursor:pointer;" onclick="$('#fun_100066_sj').click();"/><!--数据评估-->
+	<area shape="rect" coords="806,393,986,417" style="cursor:pointer;" onclick="$('#fun_10007101').click();"/><!--区县统计完成情况-->
+	<area shape="rect" coords="807,417,986,436" style="cursor:pointer;" onclick="$('#fun_10007102').click();"/><!--机构统计完成情况-->
+	<area shape="rect" coords="807,436,987,453" style="cursor:pointer;" onclick="$('#fun_10007103').click();"/><!--课程统计完成情况-->
+	<area shape="rect" coords="808,453,988,479" style="cursor:pointer;" onclick="$('#fun_10007104').click();"/><!--区县统计课时发布情况-->
+	<area shape="rect" coords="608,308,729,430" style="cursor:pointer;" onclick="$('#fun_100070').click();"/><!--统计日报-->
+	<area shape="rect" coords="390,310,522,426" style="cursor:pointer;" onclick="$('#fun_100090').click();"/><!--机构联系方式-->
+	<area shape="rect" coords="168,311,289,421" style="cursor:pointer;" onclick="$('#fun_100069').click();"/><!--审核课程信息-->
+</map>
+<!--机构管理员-->
+<map name="instManagerMap" id="instManagerMap">
+	<area shape="rect" coords="100,113,216,255" style="cursor:pointer;" onclick="$('#fun_100006').click();"/><!--活动场地备案-->
+	<area shape="rect" coords="796,390,901,413" style="cursor:pointer;" onclick="$('#fun_10004901').click();"/><!--活动项目统计-->
+	<area shape="rect" coords="797,412,900,438" style="cursor:pointer;" onclick="$('#fun_10004902').click();"/><!--查看课程情况-->
+	<area shape="rect" coords="637,108,767,241" style="cursor:pointer;" onclick="$('#fun_100047').click();"/><!--查看课程评价-->
+	<area shape="rect" coords="233,309,339,442" style="cursor:pointer;" onclick="$('#fun_100041').click();"/><!--机构教师管理-->
+	<area shape="rect" coords="371,195,487,217" style="cursor:pointer;" onclick="$('#fun_10004201').click();"/><!--课程信息设置-->
+	<area shape="rect" coords="371,218,487,236" style="cursor:pointer;" onclick="$('#fun_10004202').click();"/><!--课程发布-->
+	<area shape="rect" coords="372,237,485,257" style="cursor:pointer;" onclick="$('#fun_10004203').click();"/><!--查看已发布课程-->
+	<area shape="rect" coords="514,387,625,412" style="cursor:pointer;" onclick="$('#fun_10004501').click();"/><!--预约信息-->
+	<area shape="rect" coords="515,412,627,431" style="cursor:pointer;" onclick="$('#fun_10004502').click();"/><!--更改开课时间-->
+	<area shape="rect" coords="515,430,627,450" style="cursor:pointer;" onclick="$('#fun_10004503').click();"/><!--不可申请列表-->
+	<area shape="rect" coords="515,450,626,469" style="cursor:pointer;" onclick="$('#fun_10004504').click();"/><!--取消预约列表-->
+	<area shape="rect" coords="515,468,626,491" style="cursor:pointer;" onclick="$('#fun_10004505').click();"/><!--退课申请-->
+</map>
+<!--机构老师-->
+<map name="instTeacherMap" id="instTeacherMap">
+	<area shape="rect" coords="257,96,389,210" style="cursor:pointer;" onclick="$('#fun_100052').click();"/><!--活动管理-->
+	<area shape="rect" coords="620,97,739,215" style="cursor:pointer;" onclick="$('#fun_100053').click();"/><!--查看活动情况-->
+</map>
+<!--学校班主任-->
+<map name="headMasterMap" id="headMasterMap">
+	<area shape="rect" coords="131,143,232,262" style="cursor:pointer;" onclick="$('#fun_100057').click();"/><!--核对学生信息-->
+	<area shape="rect" coords="425,142,527,264" style="cursor:pointer;" onclick="$('#fun_100061').click();"/><!--缺勤管理-->
+	<area shape="rect" coords="744,150,825,260" style="cursor:pointer;" onclick="$('#fun_100058').click();"/><!--数据统计-->
+	<area shape="rect" coords="550,306,717,429" style="cursor:pointer;" onclick="$('#fun_100062').click();"/><!--退课/补传任务单管理-->
+	<area shape="rect" coords="265,311,394,433" style="cursor:pointer;" onclick="$('#fun_100060').click();"/><!--课程预约与修改-->
+</map>
+</body>
+</html>

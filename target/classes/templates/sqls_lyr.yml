@@ -1,0 +1,19 @@
+sqls:
+    GoodsOrderRepositoryImpl.selectValidGoodsOrderByMemberIdAndCommodityIdAndOrderStatus: |
+        select *
+        from goods_order go
+        where go.member_id = :memberId
+        and go.commodity_id = :commodityId
+        and go.order_status = :orderStatus
+        and go.valid_time >= :validTime
+
+    GoodsOrderRepositoryImpl.selectGoodsOrderByBeginTimeAndEndTime: |
+        select *
+        from goods_order go
+        where go.valid_time >= :begin
+        and go.valid_time < :end
+
+    GoodsOrderRepositoryImpl.updateOrderStatusByOrderId: |
+        update goods_order
+        set order_status = :orderStatus
+        where order_id = :orderId

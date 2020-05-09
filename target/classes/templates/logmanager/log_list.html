@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>日志列表</title>
+</head>
+<body>
+	<div class="row" ng-controller="LogListPageCtrl">
+		<div class="white-box">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<h3>日志列表</h3>
+				</div>
+				<div class="row">
+					<p class="list_p">日志列表功能介绍{{obj.name}}</p>
+				</div>
+				<div class="row white-box serch_area ">
+
+					<div class="row">
+						<div class="col-md-2">
+							<ui-select ng-model="queryObj.groupName" theme="bootstrap"
+								search-enabled="true"> <ui-select-match
+								placeholder="请选择操作人组别">{{$select.selected.groupName}}</ui-select-match>
+							<ui-select-choices
+								repeat="item in groups | filter: $select.search">
+							<span>{{item.groupName}}</span>
+							<div ng-bind-html="item.groupName | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+						<!-- //courseName:课程名称   operator操作者    byOperator 被操作者  deed行为 -->
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.courseName"
+								class="form-control" placeholder="请输入课程名字" />
+						</div>
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.operator"
+								class="form-control" placeholder="请输入操作人名字" />
+						</div>
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.byOperator"
+								class="form-control" placeholder="请输入被操作人名字" />
+						</div>
+						<div class="col-md-2">
+							<div class="input-group col-md-12">
+								<input type="text" class="form-control mydatepicker"
+									ng-model="queryObj.operateTime" placeholder="请输入课程时间" />
+								<!-- <span
+												class="input-group-addon bg-info b-0 text-white"><i
+												class="icon-calender"></i></span> -->
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.deed" class="form-control"
+								placeholder="请输入行为" />
+						</div>
+
+					</div>
+					<div class="row m-t-10">
+						<div class="col-md-2">
+							<input type="text" ng-model="queryObj.operateType"
+								class="form-control" placeholder="请输入类型" />
+						</div>
+
+						<div class="col-md-1">
+							<button type="button" ng-click="queryLog(0)"
+								class="btn btn-success">查询</button>
+						</div>
+
+						
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered th_center tr40">
+								<thead>
+									<tr align="center">
+										<th class="th_center" ng-repeat="x in itemNames ">{{x.name}}</th>
+									</tr>
+								</thead>
+								<tr ng-if="isShowBottom(logQueryResult.logsList);">
+									<td colspan="9">搜索无结果</td>
+								</tr>
+								<tbody>
+									<!-- 								{id:90100026,operator:'超级管理员',operatorGroup:'管理组',operateAction:'登录',operateType:'login',operateTime:'',courseName:'课程敏名称',courseTime:''}
+ -->
+									<tr align="center"
+										ng-repeat="result in logQueryResult.logsList"
+										repeat-done="repeatDone();">
+										<!--  id,education,showname,group_name,deed,type,time,ip,stu,stu_name,study_time,course_name  -->
+										<td>{{result.education}}</td>
+										<td>{{result.showname}}</td>
+										<td>{{result.groupName}}</td>
+										<td>{{result.deed}}</td>
+										<td>{{result.type}}</td>
+										<td>{{result.time}}</td>
+										<td>{{result.stu}}</td>
+										<td>{{result.courseName}}</td>
+										<td>{{result.studyTime}}</td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<div ng-include="'/page.html'" onload="queryForPage=queryLog;"></div>
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+
+
+
+</body>
+</html>

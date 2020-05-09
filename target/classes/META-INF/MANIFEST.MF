@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: physicalFitness
+Implementation-Version: 1.0
+Built-By: qin.chi
+Implementation-Vendor-Id: com.ichzh
+Build-Jdk: 1.8.0_91
+Implementation-URL: https://projects.spring.io/spring-boot/physicalFit
+ ness/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>用户列表</title>
+</head>
+<body>
+	<div class="row" ng-controller="UserGroupPageCtrl">
+		<div class="white-box">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div class="row"><h3>用户组列表</h3></div>
+				<div>
+					<p class="list_p">用户组功能介绍</p>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 list_button_area_text_align_r">
+						<button type="button" ng-click="addGroup();" class="btn btn-success">添加用户组</button>
+					</div>
+				</div>
+
+				<div class="row between_list_button_list_area_margin"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered th_center tr40">
+								<thead>
+									<tr align="center">
+										<th class="th_center" ng-repeat="x in itemNames ">{{x.name}}</th>
+									</tr>
+								</thead>
+								<tr ng-if="isShowBottom(userList);">
+									<td colspan="3">搜索无结果</td>
+								</tr>
+								<tbody>
+									<!--  <tr align="center" ng-repeat="result in datas" repeat-done="repeatDone();"> -->
+									<tr align="center" ng-repeat="result in userList"
+										repeat-done="repeatDone();">
+										<td>{{result.id}}</td>
+										<td>{{result.name}}</td>
+										<td class="text-nowrap"><a data-toggle="tooltip"
+											data-original-title="编辑" ng-click="editGroup(result.id);"><i
+												class="fa fa-pencil text-inverse action_icon_font_size m-r-10"
+												ng-if="1"></i></a> <a data-toggle="tooltip"
+											data-original-title="删除" ng-click="deleteGroup(result.id);"><i
+												class="fa fa-close text-danger action_icon_font_size m-r-10"
+												ng-if="1"></i></a></td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+<!-- 				<div ng-include="'/page.html'" onload="queryForPage=queryRolePage;"></div> -->
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
+
+
+
+      
