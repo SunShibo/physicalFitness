@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<div class="dataTables-wrapper no-footer" style="vertical-align: center;">
+<!--                     <div class="dataTables-info" style="font-size:14px;">共{{page.totalElements}}条/每页{{page.size}}条/共{{page.totalPages}}页</div> -->
+                    <div class="dataTables-paginate paging-simple-numbers" >
+                    	<a class="paginate-button" ng-show="page.first" ng-class="'disabled'">首页</a>
+                        <a class="paginate-button" ng-show="!page.first" ng-click="queryForPage(0);">首页</a> 
+                        <a class="paginate-button previous" ng-show="page.first" ng-class="'disabled'">上一页</a>
+                        <a class="paginate-button previous" ng-show="!page.first"  ng-click="queryForPage(page.number-1);">上一页</a> 
+                        <span>
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.number-4>=0)" ng-click="queryForPage(page.number-4);">{{page.number-3}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.number-3>=0)" ng-click="queryForPage(page.number-3);">{{page.number-2}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em"  ng-if="(page.number-2>=0)" ng-click="queryForPage(page.number-2);">{{page.number-1}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.number-1>=0)" ng-click="queryForPage(page.number-1);">{{page.number}}</a> 
+                        <a class="paginate-button current" style="padding: 0.5em 0.5em" >{{page.number+1}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.totalPages-page.number-2)>=0" ng-click="queryForPage(page.number+1);">{{page.number+2}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.totalPages-page.number-3)>=0" ng-click="queryForPage(page.number+2);">{{page.number+3}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.totalPages-page.number-4)>=0" ng-click="queryForPage(page.number+3);">{{page.number+4}}</a> 
+                        <a class="paginate-button" style="padding: 0.5em 0.5em" ng-if="(page.totalPages-page.number-5)>=0" ng-click="queryForPage(page.number+4);">{{page.number+5}}</a>
+                        </span>
+                        <a class="paginate-button next" ng-show="page.last" ng-class="'disabled'">下一页</a>
+                         <a class="paginate-button next" ng-show="!page.last" ng-click="queryForPage(page.number+1);">下一页</a>
+                         <a class="paginate-button" ng-show="page.last" ng-class="'disabled'">末页</a> 
+                        <a class="paginate-button" ng-show="!page.last" ng-click="queryForPage(page.totalPages-1);">末页</a> 
+                        
+                    </div>
+                </div>
+</body>
+</html>

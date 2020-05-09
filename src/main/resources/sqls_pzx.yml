@@ -1,0 +1,165 @@
+sqls:
+    JzdSchoolRepositoryImpl.queryJzdSchoolInfo.query: |
+      select DISTINCT query_school_name schoolName,school_code schoolCode from jzd_school
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE service_block = :serviceBlock and town = :town AND function_code = :functionCode)
+        <#if schoolName?has_content>
+          and query_school_name like %:schoolName% 
+        </#if>
+      order by school_code
+    JzdSchoolRepositoryImpl.queryStreetCommunityAddress.query: |
+      select DISTINCT street_name streetName,community_name communityName,detail_address detailAddress from jzd_school
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE service_block = :serviceBlock and town = :town AND function_code = :functionCode)
+        <#if schoolName?has_content>
+          and query_school_name = :schoolName
+        </#if>
+       and detail_address is NOT null 
+    IndependentRecruitmentRepositoryImpl.queryBy.query: |
+      select ar.*,sc.choice_id choiceId,sc.choice_id schoolId,sc.longitude,sc.dimension,case when ifnull(scn.collection_id,0)>0 then 1 else 0 end colStatus from independent_recruitment ar
+      left join school_choice sc on sc.school_code = ar.school_code 
+           and sc.town = ar.town and sc.service_block = ar.service_block and sc.year_year = ar.year_year
+      left join school_collection scn on scn.school_id = sc.choice_id and scn.service_block = :serviceBlock
+      where ar.service_block = :serviceBlock
+      and ar.year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :townId AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if town?has_content>
+          and ar.town = :town 
+        </#if>
+        <#if isCity?has_content>
+          and ar.is_city = :isCity 
+        </#if>
+    AidedAllocateRangeRepositoryImpl.queryBy.query: |
+      select ar.*,sc.choice_id choiceId,sc.choice_id schoolId,sc.longitude,sc.dimension,case when ifnull(scn.collection_id,0)>0 then 1 else 0 end colStatus from aided_allocate_range ar
+      left join school_choice sc on (sc.school_code = ar.primary_school_code or sc.school_code = ar.junior_middle_code) 
+           and sc.town = ar.town and sc.service_block = ar.service_block and sc.year_year = ar.year_year
+      left join school_collection scn on scn.school_id = sc.choice_id and scn.service_block = :serviceBlock
+      where ar.service_block = :serviceBlock and ar.town = :town
+      and ar.year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if schoolDistrictName?has_content>
+          and ar.school_district_name = :schoolDistrictName 
+        </#if>
+        <#if schoolCode?has_content>
+          and (ar.primary_school_code = :schoolCode or  ar.junior_middle_code = :schoolCode)
+        </#if>
+        <#if schoolName?has_content>
+          and (ar.primary_school_name = :schoolName or  ar.junior_middle_name = :schoolName)
+        </#if>
+    AidedAllocateRangeRepositoryImpl.querySchoolDistrict.query: |
+      select DISTINCT school_district_name name from aided_allocate_range
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if schoolDistrictName?has_content>
+          and school_district_name like %:schoolDistrictName% 
+        </#if>
+      and school_district_name is NOT null 
+    AidedAllocateRangeRepositoryImpl.querySchoolName.query: |
+      select case when service_block = 10002 then primary_school_name else junior_middle_name end schoolName,
+      case when service_block = 10002 then primary_school_code else junior_middle_code end schoolCode from aided_allocate_range
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if schoolDistrictName?has_content>
+          and school_district_name = :schoolDistrictName
+        </#if>
+        <#if schoolCode?has_content>
+          and (primary_school_code = :schoolCode or  junior_middle_code = :schoolCode)
+        </#if>
+        <#if schoolName?has_content>
+          and (primary_school_name like %:schoolName% or  junior_middle_name like %:schoolName%)
+        </#if>
+    JzdSchoolRepositoryImpl.queryStreetName.query: |
+      select DISTINCT street_name name from jzd_school
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if streetName?has_content>
+          and street_name like %:streetName% 
+        </#if>
+        and street_name is NOT null and TRIM(street_name) != ''
+    JzdSchoolRepositoryImpl.queryCommunityName.query: |
+      select DISTINCT community_name name from jzd_school
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if streetName?has_content>
+          and street_name = :streetName 
+        </#if>
+        <#if communityName?has_content>
+          and community_name like %:communityName% 
+        </#if>
+        and community_name is NOT null and TRIM(community_name) != ''
+    JzdSchoolRepositoryImpl.queryDetailAddress.query: |
+      select DISTINCT detail_address name from jzd_school
+      where service_block = :serviceBlock and town = :town
+      and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if streetName?has_content>
+          and street_name = :streetName 
+        </#if>
+        <#if communityName?has_content>
+          and community_name = :communityName 
+        </#if>
+        <#if detailAddress?has_content>
+          and detail_address like %:detailAddress%
+        </#if>
+        and detail_address is NOT null and TRIM(detail_address) != ''
+    JzdSchoolRepositoryImpl.queryBy.query: |
+      select js.*
+      from jzd_school js
+      where js.service_block = :serviceBlock and js.town = :town
+      and js.year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if streetName?has_content>
+          and js.street_name = :streetName 
+        </#if>
+        <#if communityName?has_content>
+          and js.community_name = :communityName 
+        </#if>
+        <#if detailAddress?has_content>
+          and js.detail_address = :detailAddress
+        </#if>
+    NurserySchoolRepositoryImpl.queryNurserySchool.query: |
+      select ns.*,ns.nursery_school_id schoolId,case when ifnull(scn.collection_id,0)>0 then 1 else 0 end colStatus from nursery_school ns
+      left join (select * from school_collection where member_id = :memberId) scn on scn.school_id = ns.nursery_school_id 
+      and scn.service_block = :serviceBlock where ns.town = :town and ns.year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+        <#if organizers?has_content>
+          and ns.organizers = :organizers 
+        </#if>
+        <#if isModel?has_content>
+          and ns.is_model = :isModel 
+        </#if>
+        <#if isInclusive?has_content>
+          and ns.is_inclusive = :isInclusive
+        </#if>
+    NurserySchoolRepositoryImpl.queryOrganizers.query: |
+      select DISTINCT organizers as dictId, t2.dict_name as dictName
+       from nursery_school t1, sys_dict t2
+       where t1.town = :town and year_year = (SELECT year_year FROM info_latest_year 
+      WHERE town = :town AND service_block = :serviceBlock AND function_code = :functionCode)
+       and t1.organizers = t2.dict_id;
+       
+    MemberShareRepositoryImpl.queryMemberShareByOpenId.query: |
+       select * from member_share where open_id = :memberId 
+       
+    MemberShareRepositoryImpl.updateMemberShare: | 
+       insert into member_share (member_id, open_id, share_time, is_calculated) 
+       values (:shareUserId, :memberId, now(), 0)
+       
+    MemberShareRepositoryImpl.updateMemberBeans: | 
+       update member set member_beans = member_beans + :beansCount where member_id = :memberId 
+       
+    MemberShareRepositoryImpl.queryMemberSharePayByOpenId.query: |
+       select * from member_share where open_id = :memberId and is_calculated_pay = 0
+    
+    MemberShareRepositoryImpl.updateMemberSharePay: | 
+       update member_share set is_calculated_pay = 1, calcaulated_time_pay = now() where open_id = :memberId 
+       
+    MemberShareRepositoryImpl.updateBeansRecord: | 
+       insert into beans_recordes (member_id, record_type, record_time, beans_num) 
+       values (:memberId, :recordType, now(), :beansNum)
